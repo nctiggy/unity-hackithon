@@ -1,0 +1,64 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a rest interface for the Unity platform"
+  version: "1.0.0"
+  title: "Unity-Custodian"
+  contact:
+    email: "nctiggy@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "unity-custodian.bellevuelab.isus.emc.com"
+basePath: "/"
+tags:
+- name: "Software"
+  description: "What are your Unity array code levels at?"
+schemes:
+- "http"
+paths:
+  /software:
+    get:
+      tags:
+      - "software"
+      summary: "Query unity code levels"
+      description: ""
+      operationId: "getSoftware"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+        400:
+          description: "Invalid status value"
+      x-swagger-router-controller: "Software"
+definitions:
+  unity_version:
+    type: "object"
+    required:
+    - "serialNumber"
+    - "softwareVersion"
+    properties:
+      serialNumber:
+        type: "string"
+      softwareVersion:
+        type: "string"
+        example: "4.2.0"
+  inline_response_200:
+    required:
+    - "serialNumber"
+    - "softwareVersion"
+    properties:
+      serialNumber:
+        type: "string"
+      softwareVersion:
+        type: "string"
+        example: "4.2.0"
+externalDocs:
+  description: "Find out more about Unity API"
+  url: "https://<unity_ip>/apidocs"
