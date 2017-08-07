@@ -1,4 +1,5 @@
 'use strict';
+var rest = require('./restler');
 
 exports.getSoftware = function(args, res, next) {
   /**
@@ -7,6 +8,18 @@ exports.getSoftware = function(args, res, next) {
    *
    * returns List
    **/
+    rest.get('https://192.168.0.34/api/types/basicSystemInfo/instances', {
+        X-EMC-REST-CLIENT: true,
+        Authorization: 'Basic YWRtaW46UGFzc3dvcmQjMQ==',
+        Accept: 'application/json'
+    }).on('complete', function(result) {
+        if (result instanceof Error) {
+            console.log('Error:', result.message)
+            this.retry(5000);
+        } else {
+            
+        }
+    })
   var examples = {};
   examples['application/json'] = [ {
   "serialNumber" : "aeiou",
